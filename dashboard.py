@@ -130,6 +130,7 @@ with tab2:
         df_tren = df.groupby(['Kategori', 'Bulan'])['Terjual'].sum().reset_index()
         fig2, ax2 = plt.subplots(figsize=(6, 4))
         sns.lineplot(data=df_tren, x='Bulan', y='Terjual', hue='Kategori', marker="o", ax=ax2)
+        ax2.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: f'{x:,.0f}'))
         ax2.set_xlabel("Bulan")
         ax2.set_ylabel("Jumlah Terjual")
         ax2.set_title("Tren Bulanan")
