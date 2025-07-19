@@ -95,6 +95,10 @@ with tab1:
         use_container_width=True
     )
 
+    st.markdown('<div class="chart-title">Top 1 Produk Paling Laris per Kategori</div>', unsafe_allow_html=True)
+    df_top1_produk = df.sort_values(by='Terjual', ascending=False).drop_duplicates(subset='Kategori')
+    df_top1_produk = df_top1_produk[['Kategori', 'Nama_Produk', 'Terjual']].reset_index(drop=True)
+    st.dataframe(df_top1_produk, use_container_width=True)
     st.markdown('<div class="chart-title">Grafik Penjualan Terbanyak Berdasarkan Kategori</div>', unsafe_allow_html=True)
     df_summary = df.groupby(['Kategori', 'Terlaris'])['Terjual'].sum().reset_index()
     fig1, ax1 = plt.subplots(figsize=(15, 4))
@@ -106,12 +110,9 @@ with tab1:
     st.pyplot(fig1)
 
     st.markdown('<div class="chart-title">Distribusi Penjualan Terlaris Berdasarkan Lokasi Toko</div>', unsafe_allow_html=True)
-
     lokasi_terlaris = df[df['Terlaris'] == 1].groupby('Lokasi_Toko')['Terlaris'].sum().reset_index()
     lokasi_terlaris = lokasi_terlaris[lokasi_terlaris['Terlaris'] > 0]
-
     lokasi_terlaris = lokasi_terlaris.sort_values(by='Terlaris', ascending=False)
-
     fig3, ax3 = plt.subplots(figsize=(20, 20))
     sns.barplot(data=lokasi_terlaris, x='Terlaris', y='Lokasi_Toko', ax=ax3, palette='viridis')
     ax3.set_title("Penjualan Terlaris per Lokasi")
@@ -193,15 +194,15 @@ with tab2:
         st.markdown('<div class="chart-title">Top 10 Kategori Dengan Harga Rendah</div>', unsafe_allow_html=True)
         # Pastikan harga berbentuk numerik
         df['Harga_Produk'] = df['Harga_Produk'].astype(str).str.replace(",", "").str.replace(".", "").astype(float)
-    
+
         # Ambil produk termurah per kategori, lalu ambil 10 kategori teratas
         df_max_price_per_kategori = df.sort_values('Harga_Produk', ascending=True).drop_duplicates('Kategori')
         df_top10_harga = df_max_price_per_kategori.sort_values(by='Harga_Produk', ascending=True).head(10)
-    
+
         # Warna solid (bisa sesuaikan jumlah dan warna sesuai preferensi)
         solid_colors = ['#FF5733', '#33FF57', '#3357FF', '#FF33A8', '#FFBD33',
                         '#33FFF2', '#8E44AD', '#2ECC71', '#E74C3C', '#2980B9']
-    
+
         # Pie Chart
         fig_pie1, ax_pie = plt.subplots(figsize=(9, 7))
         ax_pie.pie(
