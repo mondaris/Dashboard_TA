@@ -143,7 +143,7 @@ with tab2:
         df_event = df[df['Tanggal'] == '2025-06-06']
         if not df_event.empty:
             df_event_summary = df_event.groupby('Kategori')['Terjual'].sum().reset_index()
-            fig_event, ax_event = plt.subplots(figsize=(9.975, 4))
+            fig_event, ax_event = plt.subplots(figsize=(9.98, 4))
             sns.barplot(data=df_event_summary, x='Kategori', y='Terjual', ax=ax_event)
             ax_event.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: f'{x:,.0f}'))
             ax_event.set_title("Penjualan Tanggal 6 Juni 2025")
@@ -193,11 +193,15 @@ with tab2:
         st.markdown('<div class="chart-title">Top 10 Kategori Dengan Harga Rendah</div>', unsafe_allow_html=True)
         # Pastikan harga berbentuk numerik
         df['Harga_Produk'] = df['Harga_Produk'].astype(str).str.replace(",", "").str.replace(".", "").astype(float)
-
-        # Ambil produk termahal per kategori, lalu ambil 10 kategori teratas
+    
+        # Ambil produk termurah per kategori, lalu ambil 10 kategori teratas
         df_max_price_per_kategori = df.sort_values('Harga_Produk', ascending=True).drop_duplicates('Kategori')
         df_top10_harga = df_max_price_per_kategori.sort_values(by='Harga_Produk', ascending=True).head(10)
-
+    
+        # Warna solid (bisa sesuaikan jumlah dan warna sesuai preferensi)
+        solid_colors = ['#FF5733', '#33FF57', '#3357FF', '#FF33A8', '#FFBD33',
+                        '#33FFF2', '#8E44AD', '#2ECC71', '#E74C3C', '#2980B9']
+    
         # Pie Chart
         fig_pie1, ax_pie = plt.subplots(figsize=(9, 7))
         ax_pie.pie(
@@ -205,7 +209,7 @@ with tab2:
             labels=df_top10_harga['Kategori'],
             autopct=lambda pct: f'{pct:.1f}%',  # tampilkan persentase
             startangle=140,
-            colors=sns.color_palette('coolwarm')
+            colors=solid_colors
         )
         ax_pie.set_title("Distribusi 10 Kategori Berdasarkan Harga Produk Terendah")
         st.pyplot(fig_pie1)
