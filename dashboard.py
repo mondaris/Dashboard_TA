@@ -161,22 +161,18 @@ with tab2:
         st.markdown('<div class="chart-title">Top 10 Kategori Dengan Harga Tinggi</div>', unsafe_allow_html=True)
         # Pastikan harga berbentuk numerik
         df['Harga_Produk'] = df['Harga_Produk'].astype(str).str.replace(",", "").str.replace(".", "").astype(float)
-
         # Ambil produk termahal per kategori, lalu ambil 10 kategori teratas
         df_max_price_per_kategori = df.sort_values('Harga_Produk', ascending=False).drop_duplicates('Kategori')
         df_top10_harga = df_max_price_per_kategori.sort_values(by='Harga_Produk', ascending=False).head(10)
+        # Horizontal Bar Chart
+        fig_bar, ax_bar = plt.subplots(figsize=(9, 10.64))
+        sns.barplot(data=df_top10_harga, x='Harga_Produk', y='Kategori', palette='dark:#5A9_r')
+        ax_bar.set_title("Top 10 Kategori Dengan Harga Produk Tertinggi")
+        ax_bar.set_xlabel("Harga Produk (Rp)")
+        ax_bar.set_ylabel("Kategori")
+        ax_bar.xaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: f'Rp{x:,.0f}'))
+        st.pyplot(fig_bar)
 
-        # Pie Chart
-        fig_pie, ax_pie = plt.subplots(figsize=(10, 15))
-        ax_pie.pie(
-            df_top10_harga['Harga_Produk'],
-            labels=df_top10_harga['Kategori'],
-            autopct=lambda pct: f'{pct:.1f}%',  # tampilkan persentase
-            startangle=140,
-            colors=sns.color_palette('coolwarm')
-        )
-        ax_pie.set_title("Distribusi 10 Kategori Berdasarkan Harga Produk Tertinggi")
-        st.pyplot(fig_pie)
 
     with col4:
         st.markdown('<div class="chart-title">Rata-rata Rating Produk per Kategori</div>', unsafe_allow_html=True)    
