@@ -181,7 +181,7 @@ with tab2:
     with col4:
         st.markdown('<div class="chart-title">Rata-rata Rating Produk per Kategori</div>', unsafe_allow_html=True)    
         df_rating = df.groupby('Kategori')['Rating'].mean().sort_values(ascending=False).reset_index()
-        fig, ax = plt.subplots(figsize=(6, 8.2))
+        fig, ax = plt.subplots(figsize=(6, 7.7))
         sns.barplot(data=df_rating, x='Rating', y='Kategori', palette='coolwarm', ax=ax)
         ax.set_title("Rata-rata Rating Produk per Kategori")
         ax.set_xlabel("Rating")
