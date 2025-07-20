@@ -144,7 +144,7 @@ with tab2:
         df_event = df[df['Tanggal'] == '2025-06-06']
         if not df_event.empty:
             df_event_summary = df_event.groupby('Kategori')['Terjual'].sum().reset_index()
-            fig_event, ax_event = plt.subplots(figsize=(9.98, 4))
+            fig_event, ax_event = plt.subplots(figsize=(14,6.28))
             sns.barplot(data=df_event_summary, x='Kategori', y='Terjual', ax=ax_event)
             ax_event.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: f'{x:,.0f}'))
             ax_event.set_title("Penjualan Tanggal 6 Juni 2025")
