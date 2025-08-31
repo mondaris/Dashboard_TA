@@ -185,7 +185,7 @@ elif selected == "Dashboard":
 
     # === Upload Data ===
     uploaded_file = st.file_uploader("Upload file CSV hasil scraping (harus memuat kolom: 'Kategori', 'Nama_Produk', 'Lokasi_Toko', 'Harga Produk', 'Terjual', 'Rating', 'Terlaris')", type=["csv"])
-    uploaded_tren = st.file_uploader("Upload file CSV hasil tren mingguan (harus memuat kolom: 'Kategori', 'Nama_Produk', 'Lokasi_Toko', 'Harga Produk', 'Terjual', 'Rating')", type=["csv"])
+    uploaded_tren = st.file_uploader("Upload file CSV hasil tren mingguan (harus memuat kolom: 'Kategori', 'Nama_Produk', 'Lokasi_Toko', 'Harga Produk', 'Terjual', 'Rating', 'Tanggal')", type=["csv"])
 
     if uploaded_file is not None and uploaded_tren is not None:
         df = pd.read_csv(uploaded_file)
@@ -256,20 +256,6 @@ elif selected == "Dashboard":
             df[['Kategori', 'Nama_Produk', 'Lokasi_Toko', 'Harga_Produk', 'Terjual', 'Rating', 'Terlaris']],
             use_container_width=True
         )
-
-
-        # # === Hitung jumlah terlaris vs tidak terlaris ===
-        # jumlah_terlaris = df['Terlaris'].sum()
-        # jumlah_tidak_terlaris = (df['Terlaris'] == 0).sum()
-
-        # # === Card jumlah produk ===
-        # st.markdown(f"""
-        # <div class="card">
-        #     <p>Jumlah Produk <strong>Terlaris</strong>: {jumlah_terlaris}</p>
-        #     <p>Jumlah Produk <strong>Tidak Terlaris</strong>: {jumlah_tidak_terlaris}</p>
-        # </div>
-        # """, unsafe_allow_html=True)
-
 
         st.markdown('<div class="chart-title">Distribusi Produk Terlaris vs Tidak Terlaris per Kategori</div>', unsafe_allow_html=True)
         st.markdown(f"""
