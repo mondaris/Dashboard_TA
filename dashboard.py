@@ -10,6 +10,8 @@ from streamlit_option_menu import option_menu
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from dotenv import load_dotenv
+import os
 
 # ====== CONFIG PAGE ======
 st.set_page_config(page_title="Produk Terlaris", layout='wide')
@@ -439,9 +441,11 @@ elif selected == "Dashboard":
         """, unsafe_allow_html=True)
 
     # ==== KONFIGURASI EMAIL ====
-    EMAIL_PENGIRIM = "mohammadnafiis.19@gmail.com"
-    PASSWORD = "ihlc ejak pscr zkus" 
-    EMAIL_TUJUAN = "mohammad.septiano@mhs.unsoed.ac.id"
+    load_dotenv()
+
+    EMAIL_PENGIRIM = st.secrets["EMAIL_PENGIRIM"]
+    PASSWORD = st.secrets["PASSWORD"]
+    EMAIL_TUJUAN = st.secrets["EMAIL_TUJUAN"]
     
     st.markdown("""
     <div class="main"></div>
