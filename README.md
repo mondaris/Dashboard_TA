@@ -14,7 +14,11 @@ pipenv shell
 pip install -r requirements.txt
 ```
 
-## Run steamlit app
+## Run steamlit app local
 ```
 streamlit run dashboard.py
+```
+## Run app online 
+```
+https://dashboardterlaris.streamlit.app/
 ```
