@@ -1,11 +1,35 @@
-# Python
+# ======================
+# PYTHON
+# ======================
 __pycache__/
-*.pyc
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
 
-# Virtual env
+# ======================
+# VIRTUAL ENVIRONMENT
+# ======================
 venv/
-.env
+.env/
 *.env
 
-# Streamlit
+# ======================
+# JUPYTER NOTEBOOK
+# ======================
+.ipynb_checkpoints
+
+# ======================
+# STREAMLIT
+# ======================
 .streamlit/secrets.toml
+
+# ======================
+# SYSTEM FILES
+# ======================
+.DS_Store
+Thumbs.db
